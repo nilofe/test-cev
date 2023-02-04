@@ -5,7 +5,7 @@ import pickle
 
 
 app = FastAPI()
-model_predict = pickle.load(open("model.pkl", "rb"))
+model_predict = pickle.load(open("app/model.pkl", "rb"))
 
 
 

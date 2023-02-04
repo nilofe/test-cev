@@ -1,4 +1,4 @@
-FROM python:3.10
+FROM python:3.8
 
 COPY  requirements.txt /tmp/
 
@@ -8,4 +8,4 @@ EXPOSE 8000
 
 COPY ./app /app
 
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD ["uvicorn", "app.main:app", "--host", "127.0.0.1", "--port", "8000"]
