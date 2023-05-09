@@ -15,7 +15,7 @@ class Model(BaseModel):
 
 @app.get("/")
 def main():
-    return "Welcome to Machien Learning FastAPI"
+    return "Welcome to Machine Learning FastAPI"
 
 @app.post("/api/")
 def model(api: Model):
