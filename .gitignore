@@ -2,6 +2,7 @@
 __pycache__/
 *.txt
 venv/
+env/
 .git/
 .ipynb_checkpoints/
 
