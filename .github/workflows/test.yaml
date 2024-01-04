@@ -91,3 +91,10 @@ jobs:
     - name: create infra compute-engine
       run: |
         python3 cp.py ${{ env.PROJECT_NAME }} 
+    
+    - name: ssh 
+      run: |
+        gcloud compute ssh --zone "us-central1-a" "instance-1" --project "test-dev-54830" --quiet
+        slepp 3
+        sudo snap install docker ; sudo docker pull  nilofe/test-challege-ia:main ; docker run -d -p 80:8000 --name dev-a nilofe/test-challege-ia:main
+        echo "deployment"
