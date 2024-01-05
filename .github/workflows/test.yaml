@@ -1,62 +1,51 @@
 name: Run Tests
-
-on:
+'on':
   push:
     branches:
       - main
   pull_request:
     branches:
       - main
-env: 
+env:
   REGISTRY: docker.io
   IMAGE_NAME: ${{ github.repository }}
   PROJECT_NAME: test-dev-54830
-
 jobs:
   test:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.10.12'  # Especifica tu versión de Python
-
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
-
-    - name: Run tests
-      run: |
-        python -m pytest tests/
-
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10.12
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+      - name: Run tests
+        run: |
+          python -m pytest tests/
   push-image-docker:
     runs-on: ubuntu-latest
     permissions:
       contents: read
       packages: write
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
       - name: Login to the Container registry
         uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ secrets.REGISTRY_USER }}
           password: ${{ secrets.REGISTRY_TOKEN }}
-
       - name: extract metadata (tags, labels) for docker
         id: meta
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
           images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-
       - name: build and push docker image
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
         with:
@@ -64,34 +53,24 @@ jobs:
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-
   deploy:
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-
-    - id: 'auth'
-      uses: 'google-github-actions/auth@v2'
-      with:
-        credentials_json: '${{ secrets.GCP_CREDENTIALS }}'
-
-    - name: 'Set up Cloud SDK'
-      uses: 'google-github-actions/setup-gcloud@v2'
-
-    - name: 'Use gcloud CLI'
-      run: 'gcloud config list project'
-    
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.10.12' 
-    
-    - name: create infra compute-engine
-      run: |
-        python3 cp.py ${{ env.PROJECT_NAME }} 
-    
-    - name: ssh 
-      run: |
-        gcloud compute ssh --zone "us-central1-a" "instance-1" --project "test-dev-54830" --quiet --command "sudo apt update && sudo snap install docker && sudo mkdir hola && sudo docker pull nilofe/test-challege-ia:main && sudo docker run -d -p 80:8000 --name dev-a nilofe/test-challege-ia:main"
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+      - name: Use gcloud CLI
+        run: gcloud config list project
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.10.12
+      - name: create infra compute-engine
+        run: |
+          python3 cp.py ${{ env.PROJECT_NAME }}
+     
