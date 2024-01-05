@@ -94,5 +94,4 @@ jobs:
     
     - name: ssh 
       run: |
-        gcloud compute ssh --zone "us-central1-a" "instance-1" --project "test-dev-54830" --quiet
-        pwd 
+        gcloud compute ssh --zone "us-central1-a" "instance-1" --project "test-dev-54830" --quiet --command "sudo apt update && sudo snap install docker && sudo mkdir hola && sudo docker pull nilofe/test-challege-ia:main && sudo docker run -d -p 80:8000 --name dev-a nilofe/test-challege-ia:main"
