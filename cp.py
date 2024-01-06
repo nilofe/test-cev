@@ -20,7 +20,7 @@ def crear_instancia():
         "--zone=us-central1-a",
         "--machine-type=e2-micro",
         "--network-interface=network-tier=PREMIUM,stack-type=IPV4_ONLY,subnet=default",
-        "--metadata=startup-script-url=https://storage.cloud.google.com/doki-test-dev-54830/startup-script.sh",
+        "--metadata=startup-script-url=https://storage.googleapis.com/doki-test-dev-54830/startup-script.sh",
         "--maintenance-policy=MIGRATE",
         "--provisioning-model=STANDARD",
         "--service-account=356036604186-compute@developer.gserviceaccount.com",
