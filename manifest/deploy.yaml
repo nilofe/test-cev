@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: mi-aplicacion-python
-        image: docker pull nilofe/test-challege-ia:main
+        image: nilofe/test-challege-ia:main
         ports:
         - containerPort: 8000
 ---
