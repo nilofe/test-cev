@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mi-aplicacion-python
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: mi-aplicacion-python
+  template:
+    metadata:
+      labels:
+        app: mi-aplicacion-python
+    spec:
+      containers:
+      - name: mi-aplicacion-python
+        image: docker pull nilofe/test-challege-ia:main
+        ports:
+        - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mi-aplicacion-python-service
+spec:
+  selector:
+    app: mi-aplicacion-python
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+  type: LoadBalancer
