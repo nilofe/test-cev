@@ -64,8 +64,8 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            sudo docker pull ${{ secrets.REGISTRY_USER }}/${{ env.IMAGE_NAME }}:main 
-            sudo docker run -d -p 80:8000 ${{ secrets.REGISTRY_USER }}/${{ env.IMAGE_NAME }}:main
+            docker pull ${{ secrets.REGISTRY_USER }}/test-cev:main 
+            docker run -d -p 80:8000 ${{ secrets.REGISTRY_USER }}/test-cev:main
             
     
 
