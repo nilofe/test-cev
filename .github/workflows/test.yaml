@@ -56,18 +56,17 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
-      - id: auth
-        uses: google-github-actions/auth@v2
+      - name: Deploy to EC2
+        id: deploy
+        uses: appleboy/ssh-action@master
         with:
-          credentials_json: ${{ secrets.GCP_CREDENTIALS }}
-      - name: Set up Cloud SDK
-        uses: google-github-actions/setup-gcloud@v2
-      - name: Use gcloud CLI
-        run: gcloud config list project
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: 3.10.12
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            sudo docker pull ${{ secrets.REGISTRY_USER }}/${{ env.IMAGE_NAME }}:main 
+            sudo docker run -d -p 80:8000 ${{ secrets.REGISTRY_USER }}/${{ env.IMAGE_NAME }}:main
+            
+    
+
      
