@@ -7,5 +7,13 @@ services:
       - app-net
 
   nginx:
-    image: nginx:latest
-    
+    container_name: nginx
+    restart: always
+    build: ./jobs
+    ports:
+      - "80:80"
+    networks:
+      - app-net
+
+networks:
+  app-net:
