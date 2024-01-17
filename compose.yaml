@@ -9,7 +9,8 @@ services:
   nginx:
     container_name: nginx
     restart: always
-    build: ./jobs
+    build: 
+      context: ./jobs
     ports:
       - "80:80"
     networks:
