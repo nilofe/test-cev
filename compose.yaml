@@ -1,0 +1,11 @@
+services: 
+  app:
+    image: nilofe/test-cev:main
+    ports:
+      - "8000:8000"
+    networks:
+      - app-net
+
+  nginx:
+    image: nginx:latest
+    
