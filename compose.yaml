@@ -18,7 +18,5 @@ services:
       - app-net
 
  
-
-
 networks:
   app-net:
