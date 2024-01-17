@@ -64,8 +64,8 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            docker pull ${{ secrets.REGISTRY_USER }}/test-cev:main 
-            docker run -d -p 80:8000 ${{ secrets.REGISTRY_USER }}/test-cev:main
+            docker-compose up --build -d
+            docker-compose up -d 
             
     
 
