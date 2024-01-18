@@ -65,8 +65,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             docker-compose up --build -d
-            docker-compose up -d 
-            
+            docker-compose up -d
     
 
      
