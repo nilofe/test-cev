@@ -64,6 +64,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
+            cd $GITHUB_WORKSPACE
             docker-compose up --build -d
             docker-compose up -d
     
