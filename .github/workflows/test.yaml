@@ -9,7 +9,6 @@ name: Run Tests
 env:
   REGISTRY: docker.io
   IMAGE_NAME: ${{ github.repository }}
-  PROJECT_NAME: test-dev-54830
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -27,7 +26,8 @@ jobs:
       - name: Run tests
         run: |
           python -m pytest tests/
-  push-image-docker:
+  push-build-image-docker:
+    needs: test
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -63,10 +63,9 @@ jobs:
           labels: |
             com.example.version=my-version
             com.example.build-date=2024-01-17
-
-
-      
+   
   deploy:
+    needs: push-build-image-docker
     runs-on: ubuntu-latest
     steps: 
        - name: Deploy to EC2
@@ -78,6 +77,8 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
               docker image rm -f $(docker images -aq)
+              docker stop $(docker ps -aq)
+              docker rm $(docker ps -aq)
               docker pull nilofe/test-cev:main
               docker pull nilofe/nginx-cert:latest
               docker run -d --name app-dev --network app-net -p 8000:8000 nilofe/test-cev:main
