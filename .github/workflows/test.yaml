@@ -81,7 +81,7 @@ jobs:
               docker rm $(docker ps -aq)
               docker pull nilofe/test-cev:main
               docker pull nilofe/nginx-cert:latest
-              docker run -d --name app-dev --network app-net -p 8000:8000 nilofe/test-cev:main
+              docker run -d --name app --network app-net -p 8000:8000 nilofe/test-cev:main
               docker run -d --name nginx-dev --network app-net -p 80:80 -p 443:443  nilofe/nginx-cert:latest
 
     
