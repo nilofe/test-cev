@@ -65,8 +65,8 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             git clone https://github.com/nilofe/test-cev.git
-            docker-compose -f /home/ubuntu/test-cev/jobs/docker-compose.yaml up --build -d
-            docker-compose -f /home/ubuntu/test-cev/jobs/docker-compose.yaml up -d
+            docker-compose -f /home/ubuntu/test-cev/jobs/compose.yaml up --build -d
+            docker-compose -f /home/ubuntu/test-cev/jobs/compose.yaml up -d
     
 
      
