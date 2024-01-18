@@ -62,7 +62,7 @@ jobs:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
-          source: "./jobs"  # Ruta local del directorio que deseas copiar (puede ser "." para todo el contenido del repositorio)
+          source: "./jobs/*"  # Ruta local del directorio que deseas copiar (puede ser "." para todo el contenido del repositorio)
           target: "/home/ubuntu" 
        - name: Deploy to EC2
          id: deploy
@@ -72,8 +72,8 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            docker-compose /home/ubuntu/jobs/docker-compose.yaml up --build -d
-            docker-compose /home/ubuntu/jobs/docker-compose.yaml up -d
+            docker-compose -f /home/ubuntu/jobs/docker-compose.yaml up --build -d
+            docker-compose -f /home/ubuntu/jobs/docker-compose.yaml up -d
     
 
      
