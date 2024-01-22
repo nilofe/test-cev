@@ -9,6 +9,8 @@ name: Run Trivy
 jobs:
   build:
     name: Build
+    permissions:
+      security-events: write
     runs-on: ubuntu-20.04
     steps:
       - name: Checkout code
