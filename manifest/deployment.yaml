@@ -2,15 +2,17 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mi-aplicacion-python
+  labels:
+    app: pydev
 spec:
   replicas: 3
   selector:
     matchLabels:
-      app: mi-aplicacion-python
+      app: pydev
   template:
     metadata:
       labels:
-        app: mi-aplicacion-python
+        app: pydev
     spec:
       containers:
       - name: mi-aplicacion-python
@@ -21,10 +23,10 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: mi-aplicacion-python-service
+  name: mipok-svc
 spec:
   selector:
-    app: mi-aplicacion-python
+    app.kubernetes.io/name: pydev
   ports:
     - protocol: TCP
       port: 80
