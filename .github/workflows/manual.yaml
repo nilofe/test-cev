@@ -7,10 +7,28 @@ on:
         description: 'Name of the person to greet'
         required: true
         default: 'World'
-jobs:
-  hello:
-      runs-on: ubuntu-latest
+        type: choice
+        options:
+          - info
+          - warning
+          - debug
+    print_tags:
+      description: 'True to print to STDOUT'
+      required: true
+      type: boolean
+    tags:
+      description: 'Test scenario tags'
+      required: true
+      type: string
+    environment:
+      description: 'Environment to run test against'
+      type: environment
+      required: true
 
+jobs:
+  print-tags:
+      runs-on: ubuntu-latest
+      if: ${{ inputs.print_tags }}
       steps:
-      - name: Hello steps
-        run: echo "Hello ${{ github.event.inputs.name }}"
+      - name: Print the input tag to STDOUT'
+        run: echo "the tag are ${{ inputs.tags }}"
