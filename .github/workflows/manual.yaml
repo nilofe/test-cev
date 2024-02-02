@@ -1,6 +1,9 @@
 name: Manual trigger
 
 'on':
+  push:
+    branches:
+      - release
   workflow_dispatch:
     inputs:
       logLevel:
