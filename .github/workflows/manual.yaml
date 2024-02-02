@@ -3,32 +3,32 @@ name: Manual trigger
 on:
   workflow_dispatch:
     inputs:
-      name:
-        description: 'Name of the person to greet'
+      logLevel:
+        description: 'Log level'
         required: true
-        default: 'World'
+        default: 'warning'
         type: choice
         options:
           - info
           - warning
           - debug
-    print_tags:
-      description: 'True to print to STDOUT'
-      required: true
-      type: boolean
-    tags:
-      description: 'Test scenario tags'
-      required: true
-      type: string
-    environment:
-      description: 'Environment to run test against'
-      type: environment
-      required: true
+      print_tags:
+        description: 'True to print to STDOUT'
+        required: true
+        type: boolean
+      tags:
+        description: 'Test scenario tags'
+        required: true
+        type: string
+      environment:
+        description: 'Environment to run tests against'
+        type: environment
+        required: true
 
 jobs:
-  print-tags:
-      runs-on: ubuntu-latest
-      if: ${{ inputs.print_tags }}
-      steps:
-      - name: Print the input tag to STDOUT'
-        run: echo "the tag are ${{ inputs.tags }}"
+  print-tag:
+    runs-on: ubuntu-latest
+    if:  ${{ inputs.print_tags }} 
+    steps:
+      - name: Print the input tag to STDOUT
+        run: echo  The tags are ${{ inputs.tags }} 
