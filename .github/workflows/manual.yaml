@@ -1,6 +1,6 @@
 name: Manual trigger
 
-on:
+'on':
   workflow_dispatch:
     inputs:
       logLevel:
