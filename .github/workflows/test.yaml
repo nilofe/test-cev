@@ -86,7 +86,5 @@ jobs:
           project_id: ${{ env.GCP_PROJECT_ID }}
           deliverables: './app.yaml'
 
-
-    # Example of using the output
       - id: 'test'
         run: 'curl "${{ steps.deploy.outputs.version_url }}"'
