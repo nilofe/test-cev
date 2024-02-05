@@ -75,7 +75,7 @@ jobs:
         id: 'auth'
         uses: google-github-actions/auth@v2
         with:
-          credentials_json: '${{ secrets.GCP_CREDENTIALS_APP_ENGINE }}'
+          credentials_json: ${{ secrets.GCP_CREDENTIALS_APP_ENGINE }}
           service_account: 'dev-a-408722@appspot.gserviceaccount.com'
           create_credentials_file: false
 
