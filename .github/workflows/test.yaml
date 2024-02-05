@@ -71,9 +71,9 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
-      - name:  deploy app engine
+      - name:  Authenticate with Google Cloud
         id: 'auth'
-        uses: 'google-github-actions/auth@v2'
+        uses: google-github-actions/auth@v2
         with:
           credentials_json: '${{ secrets.GCP_CREDENTIALS_APP_ENGINE }}'
           service_account: 'dev-a-408722@appspot.gserviceaccount.com'
