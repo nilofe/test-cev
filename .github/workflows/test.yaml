@@ -9,7 +9,7 @@ name: Run Tests
 env:
   REGISTRY: docker.io
   IMAGE_NAME: ${{ github.repository }}
-  GCP_PROJECT_ID: test-dev-54830
+  GCP_PROJECT_ID: dev-a-408722
 jobs:
   test:
     runs-on: ubuntu-latest
