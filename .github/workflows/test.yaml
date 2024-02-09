@@ -78,14 +78,15 @@ jobs:
           credentials_json: ${{ secrets.GCP_CREDENTIALS }}
           service_account: dev-a-408722@appspot.gserviceaccount.com
           create_credentials_file: false
-          run: gcloud auth login
+          run: |
+            gcloud auth login
 
-      - name: Deploy to app engine
-        id: 'deploy'
-        uses: 'google-github-actions/deploy-appengine@v2'
-        with:
-          project_id: ${{ env.GCP_PROJECT_ID }}
-          deliverables: './app.yaml'
+      # - name: Deploy to app engine
+      #   id: 'deploy'
+      #   uses: 'google-github-actions/deploy-appengine@v2'
+      #   with:
+      #     project_id: ${{ env.GCP_PROJECT_ID }}
+      #     deliverables: './app.yaml'
 
-      - id: 'test'
-        run: 'curl "${{ steps.deploy.outputs.version_url }}"'
+      # - id: 'test'
+      #   run: 'curl "${{ steps.deploy.outputs.version_url }}"'
