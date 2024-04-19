@@ -1,0 +1,47 @@
+name: Trigger auto deployment for contest01
+
+# When this action will be executed
+on:
+  # Automatically trigger it when detected changes in repo
+  push:
+    branches: 
+      [ main ]
+    paths:
+    - '**'
+    - '.github/workflows/contest01-AutoDeployTrigger-762db128-d6d6-42dc-9198-946c9abbe2df.yml'
+
+  # Allow manual trigger 
+  workflow_dispatch:      
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions: 
+      id-token: write #This is required for requesting the OIDC JWT Token
+      contents: read #Required when GH token is used to authenticate with private repo
+
+    steps:
+      - name: Checkout to the branch
+        uses: actions/checkout@v2
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          client-id: ${{ secrets.CONTEST01_AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.CONTEST01_AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.CONTEST01_AZURE_SUBSCRIPTION_ID }}
+
+      - name: Build and push container image to registry
+        uses: azure/container-apps-deploy-action@v2
+        with:
+          appSourcePath: ${{ github.workspace }} 
+          registryUrl: docker.io
+          registryUsername: ${{ secrets.CONTEST01_REGISTRY_USERNAME }}
+          registryPassword: ${{ secrets.CONTEST01_REGISTRY_PASSWORD }}
+          containerAppName: contest01
+          resourceGroup: RSG-02
+          imageToBuild: nilofe/contest01:${{ github.sha }}
+          _buildArgumentsKey_: |
+            _buildArgumentsValues_
+
+
