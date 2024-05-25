@@ -16,6 +16,7 @@ jobs:
     if: github.ref == 'refs/heads/main'
 
   deploy:
+    needs: build
     runs-on: ubuntu-latest
     permissions: 
       id-token: write #This is required for requesting the OIDC JWT Token

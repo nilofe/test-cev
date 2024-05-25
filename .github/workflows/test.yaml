@@ -1,5 +1,12 @@
 on:
   workflow_call:
+    inputs:
+      registryUsername:
+        type: string
+        required: true
+      registryPassword:
+        type: string
+        required: true
 env:
   REGISTRY: docker.io
   IMAGE_NAME: ${{ github.repository }}
@@ -22,6 +29,7 @@ jobs:
         run: |
           python -m pytest tests/
   push-image-docker:
+    needs: test
     runs-on: ubuntu-latest
     permissions:
       contents: read
