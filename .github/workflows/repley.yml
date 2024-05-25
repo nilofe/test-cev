@@ -3,9 +3,17 @@ on:
   push:
     branches:
       - main
-name: test
+
+name: build 
 jobs:
-  build-and-deploy:
+  build:
+    uses: "nilofe/test-cev/.github/workflows/test.yaml@latest"
+    if: github.ref == 'refs/heads/main'
+    with:
+        exampleInput: "Hello from main workflow"
+
+
+  deploy:
     runs-on: ubuntu-latest
     permissions: 
       id-token: write #This is required for requesting the OIDC JWT Token
@@ -21,13 +29,7 @@ jobs:
           client-id: ${{ secrets.CONTEST01_AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.CONTEST01_AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.CONTEST01_AZURE_SUBSCRIPTION_ID }}
-    
-      - name: build
-        uses: "nilofe/test-cev/.github/workflows/test.yaml@latest"
-        if: github.ref == 'refs/heads/main'
-        with:
-            exampleInput: "Hello from main workflow"
-
+  
       - name: Build and push container image to registry
         uses: azure/container-apps-deploy-action@v2
         with:
