@@ -1,7 +1,9 @@
-on: 
-# When this action will be executed
-  # Allow manual trigger 
+on:
   workflow_dispatch:
+  push:
+    branches:
+      - main
+name: test
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
