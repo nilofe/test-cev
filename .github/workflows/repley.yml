@@ -23,7 +23,8 @@ jobs:
           subscription-id: ${{ secrets.CONTEST01_AZURE_SUBSCRIPTION_ID }}
     
       - name: build
-        uses: ./.github/workflows/test.yaml
+        uses: "nilofe/test-cev/.github/workflows/test.yaml@latest"
+        if: github.ref == 'refs/heads/main'
         with:
             exampleInput: "Hello from main workflow"
 
