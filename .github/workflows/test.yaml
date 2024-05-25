@@ -6,6 +6,7 @@ name: Run Tests
 env:
   REGISTRY: docker.io
   IMAGE_NAME: ${{ github.repository }}
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -23,8 +24,7 @@ jobs:
       - name: Run tests
         run: |
           python -m pytest tests/
-  push-build-image-docker:
-    needs: test
+  push-image-docker:
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -35,32 +35,21 @@ jobs:
       - name: Login to the Container registry
         uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
         with:
-          registry: ${{ env.REGISTRY }}
+          registry: docker.io
           username: ${{ secrets.REGISTRY_USER }}
           password: ${{ secrets.REGISTRY_TOKEN }}
       - name: extract metadata (tags, labels) for docker
         id: meta
         uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
         with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-      - name: build and push docker image 1
+          images: docker.io/test-dev
+      - name: build and push docker image
         uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
         with:
           context: .
           push: true
-          tags: ${{ steps.meta.outputs.tags }}
+          tags:  nilofe/test-dev:latest         #${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
-      
-      - name: build and push docker image 2 
-        uses: docker/build-push-action@3b5e8027fcad23fda98b2e3ac259d8d67585f671
-        with:
-          context: ./jobs
-          push: true
-          tags: nilofe/nginx-cert
-          labels: |
-            com.example.version=my-version
-            com.example.build-date=2024-01-17
-
 
     
 
