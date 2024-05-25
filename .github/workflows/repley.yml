@@ -13,9 +13,6 @@ jobs:
     
     uses: ./.github/workflows/test.yaml
     if: github.ref == 'refs/heads/main'
-    with:
-        exampleInput: "Hello from main workflow"
-
 
   deploy:
     runs-on: ubuntu-latest
