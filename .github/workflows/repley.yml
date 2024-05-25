@@ -1,13 +1,5 @@
-name: manual actions 
-
+on: 
 # When this action will be executed
-on:
-  # Automatically trigger it when detected changes in repo
-  push:
-    branches: 
-      [ main ]
-
-
   # Allow manual trigger 
   workflow_dispatch:
 jobs:
