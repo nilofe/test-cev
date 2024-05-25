@@ -1,4 +1,4 @@
-name: Trigger auto deployment for contest01
+name: manual actions 
 
 # When this action will be executed
 on:
@@ -6,9 +6,7 @@ on:
   push:
     branches: 
       [ main ]
-    paths:
-    - '**'
-    - '.github/workflows/contest01-AutoDeployTrigger-762db128-d6d6-42dc-9198-946c9abbe2df.yml'
+
 
   # Allow manual trigger 
   workflow_dispatch:      
