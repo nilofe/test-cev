@@ -39,7 +39,7 @@ jobs:
           registryUrl: docker.io
           registryUsername: ${{ secrets.REGISTRY_USER }}
           registryPassword: ${{ secrets.REGISTRY_TOKEN }}
-          containerAppName: caca-01-newtest
+          containerAppName: aca-01-newtest
           resourceGroup: RSG-01
           imageToBuild: nilofe/test-dev:latest
           _buildArgumentsKey_: |
