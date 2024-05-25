@@ -7,7 +7,7 @@ on:
 name: build 
 jobs:
   build:
-    uses: "nilofe/test-cev/.github/workflows/test.yaml@latest"
+    uses: ./.github/workflows/test.yaml
     if: github.ref == 'refs/heads/main'
     with:
         exampleInput: "Hello from main workflow"
