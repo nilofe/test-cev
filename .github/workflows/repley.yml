@@ -9,11 +9,15 @@ permissions:
   contents: read
   packages: write  # Update this to provide the required permissions for the nested job
   id-token: write
+  
  
 jobs:
   build:
     uses: ./.github/workflows/test.yaml
     if: github.ref == 'refs/heads/main'
+    with:
+      registryUsername: ${{ secrets.REGISTRY_USER }}
+      registryPassword: ${{ secrets.REGISTRY_TOKEN }}
 
   deploy:
     needs: build
