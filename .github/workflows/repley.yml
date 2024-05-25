@@ -4,13 +4,14 @@ on:
     branches:
       - main
 
-name: build 
+name: build
+permissions:
+  contents: read
+  packages: write  # Update this to provide the required permissions for the nested job
+  id-token: write
+ 
 jobs:
   build:
-    permissions: 
-      id-token: write #This is required for requesting the OIDC JWT Token
-      contents: read #Required when GH token is used to authenticate with private repo
-    
     uses: ./.github/workflows/test.yaml
     if: github.ref == 'refs/heads/main'
 
