@@ -1,8 +1,11 @@
 name: Run Tests
-'on':
-  push:
-    branches:
-      - main
+on:
+  workflow_call:
+    inputs:
+      exampleInput:
+        description: "An example input"
+        required: true
+        type: string
 env:
   REGISTRY: docker.io
   IMAGE_NAME: ${{ github.repository }}
