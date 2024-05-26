@@ -15,9 +15,10 @@ jobs:
   build:
     uses: ./.github/workflows/test.yaml
     if: github.ref == 'refs/heads/main'
-    with:
-      registryUsername: ${{ secrets.REGISTRY_USER }}
-      registryPassword: ${{ secrets.REGISTRY_TOKEN }}
+    secrets: inherit
+#    with:
+#      registryUsername: ${{ secrets.REGISTRY_USER }}
+#      registryPassword: ${{ secrets.REGISTRY_TOKEN }}
 
   deploy:
     needs: build
