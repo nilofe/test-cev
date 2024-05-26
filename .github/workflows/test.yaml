@@ -3,10 +3,10 @@ on:
     inputs:
       registryUsername:
         type: string
-        required: true
+        required: false
       registryPassword:
         type: string
-        required: true
+        required: false
 env:
   REGISTRY: docker.io
   IMAGE_NAME: ${{ github.repository }}
