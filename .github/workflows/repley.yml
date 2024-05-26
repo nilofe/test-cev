@@ -42,7 +42,7 @@ jobs:
         with:
           appSourcePath: ${{ github.workspace }} 
           registryUrl: docker.io
-          registryUsername: ${{ secrets.REGISTRY_USER }}
+          registryUsername:  ${{ secrets.REGISTRY_USER }}
           registryPassword: ${{ secrets.REGISTRY_TOKEN }}
           containerAppName: aca-01-newtest
           resourceGroup: RSG-01
