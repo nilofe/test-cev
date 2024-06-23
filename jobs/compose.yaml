@@ -10,7 +10,7 @@ services:
     container_name: nginx
     restart: always
     build: 
-      context: ./jobs
+      context: .
     ports:
       - "80:80"
       - "443:443"
